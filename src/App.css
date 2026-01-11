@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=UnifrakturMaguntia&display=swap');
+@import "tailwindcss";
+
+@theme {       
+  --color-primary: #d4af37;      
+  --color-primary-dark: #8c6d1f;  
+  --color-border: #8b6914;  
+  --color-foreground: #fef3c6; 
+
+  --color-input-bg: #1a0f08;      
+
+  --font-sans: 'Cinzel', serif;
+
+}
+
+
