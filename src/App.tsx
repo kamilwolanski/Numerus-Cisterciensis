@@ -1,8 +1,63 @@
 import { Download } from "lucide-react";
 import "./App.css";
 import bg from "@/assets/monasterbgc.webp";
+import { useState } from "react";
+import { cistercianNumDictionary } from "@/cistercian/dictionary";
+import Glyph from "@/cistercian/Glyph";
 
 function App() {
+  const [value, setValue] = useState("");
+  const [number, setNumber] = useState<number | null>(null);
+
+  const [error, setError] = useState<string>("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setValue(value);
+
+    if (value === "") {
+      setError("");
+      setNumber(null);
+      return;
+    }
+
+    const num = Number(value);
+
+    if (Number.isNaN(num)) {
+      setError("Enter a number");
+      setNumber(null);
+      return;
+    }
+
+    if (num < 1 || num > 9999) {
+      setError("Enter a number between 1 and 9999");
+      setNumber(null);
+      return;
+    }
+
+    setError("");
+    setNumber(num);
+  };
+
+  const generate = (num: number) => {
+    const digits = String(num).split("").map(Number);
+    const values = digits.map((d, i) => d * 10 ** (digits.length - i - 1));
+
+    return (
+      <svg width="600" height="200" viewBox="-40 -40 680 280">
+        <g transform="translate(300 100)">
+          {values.map(
+            (v) =>
+              v > 0 &&
+              cistercianNumDictionary[v] && (
+                <Glyph key={v} lines={cistercianNumDictionary[v]} />
+              )
+          )}
+        </g>
+      </svg>
+    );
+  };
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-8 relative"
@@ -17,7 +72,6 @@ function App() {
           opacity: 0.25,
         }}
       />
-
       <div
         className="absolute inset-0"
         style={{
@@ -61,23 +115,30 @@ function App() {
               <input
                 id="number-input"
                 type="number"
-                // value={number}
-                // onChange={handleInputChange}
+                value={value}
+                onChange={handleInputChange}
                 placeholder="0"
                 min="0"
                 max="9999"
                 className="text-center text-xl rounded-md border-2 w-full py-2 bg-input-bg border-border text-primary"
               />
+              {error && (
+                <p className="text-red-400 text-sm text-center">{error}</p>
+              )}
             </div>
           </div>
 
           <div className="mt-8">
-            <div className="flex justify-center p-8 rounded-md text-center text-xl rounded-md border-2 w-full bg-input-bg border-border text-primary"></div>
+            <div className="flex justify-center h-[200px] rounded-md text-center text-xl rounded-md border-2 w-full bg-input-bg border-border text-primary">
+              {number && generate(number)}
+            </div>
 
             <div className="flex flex-col items-center gap-3 mt-4">
-              <p className="text-center text-foreground text-sm">
-                Arabic numeral: 3
-              </p>
+              {number && (
+                <p className="text-center text-foreground text-sm">
+                  Arabic numeral: {number}
+                </p>
+              )}
 
               <button className="transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex">
                 <Download className="mr-2 h-5 w-5" />
