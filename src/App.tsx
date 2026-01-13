@@ -152,8 +152,9 @@ function App() {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-foreground/60 text-sm">
+        <div className="mt-8 text-center text-foreground/80 text-sm">
           <p>A numeral system used by Cistercian monks in the Middle Ages</p>
+          <p className="mt-2">More information on: <a className="text-primary underline" href="https://en.wikipedia.org/wiki/Cistercian_numerals" target="_blank" rel="noopener noreferrer">Cistercian numerals</a></p>
         </div>
       </div>
     </div>
