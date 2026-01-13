@@ -133,7 +133,7 @@ function App() {
           <div className="space-y-6 mb-8">
             <div className="space-y-2">
               <label htmlFor="number-input" className="text-foreground text-sm md:text-base">
-                Enter a number (0–9999)
+                Enter a number (1–9999)
               </label>
               <input
                 id="number-input"
