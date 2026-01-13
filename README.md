@@ -2,6 +2,8 @@
 
 **Cistercian Numeral System Number Generator** — a small React app that converts an Arabic number into a medieval Cistercian numeral (1–9999) and lets you download it as an SVG.
 
+**Live demo:** https://numerus-cisterciensis.vercel.app/
+
 ## Demo
 
 - Type a number (1–9999)
