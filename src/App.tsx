@@ -46,7 +46,7 @@ function App() {
     const values = digits.map((d, i) => d * 10 ** (digits.length - i - 1));
 
     return (
-      <svg width="200" height="200" viewBox="-20 -20 240 240" ref={svgRef}>
+      <svg width="200" height="200" viewBox="-30 -30 260 260" ref={svgRef}>
         <g transform="translate(100 100)">
           {values.map(
             (v) =>

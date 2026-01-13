@@ -10,7 +10,8 @@ const Glyph = ({ lines }: GlyphProps) => (
         x2={l.x2}
         y2={l.y2}
         stroke="white"
-        strokeWidth={2}
+        stroke-linecap="round"
+        strokeWidth={3}
       />
     ))}
   </>
