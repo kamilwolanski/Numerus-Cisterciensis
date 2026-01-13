@@ -141,7 +141,7 @@ function App() {
                 autoFocus
                 value={value}
                 onChange={handleInputChange}
-                placeholder="0"
+                placeholder="Try 2026"
                 min="0"
                 max="9999"
                 className="text-center text-xl rounded-md border-2 w-full py-2 bg-input-bg border-border text-primary"
