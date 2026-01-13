@@ -104,16 +104,16 @@ function App() {
       />
 
       <div className="w-full max-w-2xl relative z-10 mb-20">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h1
-            className="mb-4 text-6xl text-primary tracking-wider"
+            className="mb-4 text-5xl md:text-6xl text-primary tracking-wider"
             style={{
               fontFamily: "'UnifrakturMaguntia', cursive",
             }}
           >
             Numerus Cisterciensis
           </h1>
-          <p className="text-foreground tracking-wider text-lg">
+          <p className="text-foreground tracking-wider md:text-lg">
             Cistercian Numeral System Number Generator
           </p>
         </div>
@@ -132,7 +132,7 @@ function App() {
 
           <div className="space-y-6 mb-8">
             <div className="space-y-2">
-              <label htmlFor="number-input" className="text-foreground">
+              <label htmlFor="number-input" className="text-foreground text-sm md:text-base">
                 Enter a number (0–9999)
               </label>
               <input
@@ -144,10 +144,10 @@ function App() {
                 placeholder="Try 2026"
                 min="0"
                 max="9999"
-                className="text-center text-xl rounded-md border-2 w-full py-2 bg-input-bg border-border text-primary"
+                className="text-center md:text-xl rounded-md border-2 w-full py-2 bg-input-bg border-border text-primary"
               />
               {error && (
-                <p className="text-red-400 text-sm text-center">{error}</p>
+                <p className="text-red-400 text-xs md:text-sm text-center">{error}</p>
               )}
             </div>
           </div>
@@ -179,7 +179,7 @@ function App() {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-foreground/80 text-sm">
+        <div className="mt-8 text-center text-foreground/80 text-xs md:text-sm">
           <p>A numeral system used by Cistercian monks in the Middle Ages</p>
           <p className="mt-2">
             More information on:{" "}
