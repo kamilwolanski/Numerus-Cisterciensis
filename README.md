@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# Numerus Cisterciensis (NCG)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Cistercian Numeral System Number Generator** — a small React app that converts an Arabic number into a medieval Cistercian numeral (1–9999) and lets you download it as an SVG.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Type a number (1–9999)
+- The Cistercian glyph is rendered as SVG
+- Click **Download** to save the generated glyph as `"{number}-cistercian.svg"`
 
-## React Compiler
+## Features
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- ✅ Convert numbers from **1 to 9999**
+- ✅ Live preview (SVG)
+- ✅ Download generated numeral as **SVG**
+- ✅ Clean, simple UI
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React + TypeScript**
+- **Vite**
+- **lucide-react** (icons)
+- SVG rendering (no canvas)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## How it works
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+A number is split into digits and mapped into place values:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- units (1–9)
+- tens (10–90)
+- hundreds (100–900)
+- thousands (1000–9000)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Each place value has a predefined set of line segments (`LineDef[]`).  
+The base shapes (`base1`–`base9`) are mirrored across axes to create tens/hundreds/thousands using simple transforms:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `rotateY`: `(x, y) → (-x, y)`
+- `rotateX`: `(x, y) → (x, -y)`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The final glyph is composed by rendering all matching line segments in a single `<svg>`.
