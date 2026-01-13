@@ -158,12 +158,6 @@ function App() {
             </div>
 
             <div className="flex flex-col items-center gap-3 mt-4">
-              {number && (
-                <p className="text-center text-foreground text-sm">
-                  Arabic numeral: {number}
-                </p>
-              )}
-
               <button
                 className="transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex cursor-pointer"
                 onClick={downloadSvg}
