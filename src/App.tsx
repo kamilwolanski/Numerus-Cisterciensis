@@ -1,7 +1,7 @@
 import { Download } from "lucide-react";
 import "./App.css";
 import bg from "@/assets/monasterbgc.webp";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cistercianNumDictionary } from "@/cistercian/dictionary";
 import Glyph from "@/cistercian/Glyph";
 
@@ -10,6 +10,8 @@ function App() {
   const [number, setNumber] = useState<number | null>(null);
 
   const [error, setError] = useState<string>("");
+
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -44,8 +46,8 @@ function App() {
     const values = digits.map((d, i) => d * 10 ** (digits.length - i - 1));
 
     return (
-      <svg width="600" height="200" viewBox="-40 -40 680 280">
-        <g transform="translate(300 100)">
+      <svg width="200" height="200" viewBox="-20 -20 240 240" ref={svgRef}>
+        <g transform="translate(100 100)">
           {values.map(
             (v) =>
               v > 0 &&
@@ -56,6 +58,27 @@ function App() {
         </g>
       </svg>
     );
+  };
+
+  const downloadSvg = () => {
+    const svgEl = svgRef.current;
+    if (!svgEl) return;
+
+    const clone = svgEl.cloneNode(true) as SVGSVGElement; // cloned it to change the stroke color to black
+
+    clone.querySelectorAll("line").forEach((line) => {
+      line.setAttribute("stroke", 'black');
+    });
+
+    const svgString = new XMLSerializer().serializeToString(clone);
+    const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${number}-cistercian.svg`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -141,7 +164,10 @@ function App() {
                 </p>
               )}
 
-              <button className="transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex">
+              <button
+                className="transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex cursor-pointer"
+                onClick={downloadSvg}
+              >
                 <Download className="mr-2 h-5 w-5" />
                 Download
               </button>
@@ -155,7 +181,17 @@ function App() {
 
         <div className="mt-8 text-center text-foreground/80 text-sm">
           <p>A numeral system used by Cistercian monks in the Middle Ages</p>
-          <p className="mt-2">More information on: <a className="text-primary underline" href="https://en.wikipedia.org/wiki/Cistercian_numerals" target="_blank" rel="noopener noreferrer">Cistercian numerals</a></p>
+          <p className="mt-2">
+            More information on:{" "}
+            <a
+              className="text-primary underline"
+              href="https://en.wikipedia.org/wiki/Cistercian_numerals"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Cistercian numerals
+            </a>
+          </p>
         </div>
       </div>
     </div>
