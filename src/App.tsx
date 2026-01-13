@@ -115,6 +115,7 @@ function App() {
               <input
                 id="number-input"
                 type="number"
+                autoFocus
                 value={value}
                 onChange={handleInputChange}
                 placeholder="0"
