@@ -38,3 +38,7 @@ The base shapes (`base1`–`base9`) are mirrored across axes to create tens/hund
 - `rotateX`: `(x, y) → (x, -y)`
 
 The final glyph is composed by rendering all matching line segments in a single `<svg>`.
+
+## License
+
+MIT
