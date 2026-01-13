@@ -153,14 +153,15 @@ function App() {
           </div>
 
           <div className="mt-8">
-            <div className="flex justify-center h-[200px] rounded-md text-center text-xl rounded-md border-2 w-full bg-input-bg border-border text-primary">
+            <div className="flex justify-center h-[200px] text-center text-xl rounded-md border-2 w-full bg-input-bg border-border text-primary">
               {number && generate(number)}
             </div>
 
             <div className="flex flex-col items-center gap-3 mt-4">
               <button
-                className="transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex cursor-pointer"
+                className={`transition-all bg-primary-dark text-primary font-semibold border-2 py-4 px-6 flex ${number ? 'cursor-pointer' : 'opacity-50'} `}
                 onClick={downloadSvg}
+                disabled={!number}
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download
